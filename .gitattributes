@@ -1,0 +1,30 @@
+# 일반 텍스트 파일 (코드, 설정 파일 등)
+*.java          text eol=lf
+*.kt            text eol=lf
+*.xml           text eol=lf
+*.gradle        text eol=lf
+*.properties    text eol=lf
+*.md            text eol=lf
+*.yml           text eol=lf
+
+# 쉘 스크립트 (Linux/Unix 환경용)
+*.sh            text eol=lf
+
+# Windows 스크립트 파일
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+
+# 바이너리 파일 (줄바꿈 무시)
+*.png           -text
+*.jpg           -text
+*.jpeg          -text
+*.gif           -text
+*.jar           -text
+*.apk           -text
+*.keystore      -text
+*.otf           -text
+*.ttf           -text
+
+# Git용 기본 설정 파일
+.gitattributes  text eol=lf
+.gitignore      text eol=lf
