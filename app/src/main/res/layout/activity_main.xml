@@ -12,15 +12,16 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textSize="18sp"
+        android:textColor="#000000"
         android:background="#EEEEEE"
         android:padding="8dp"
         android:scrollbars="vertical"
-        android:text="메모가 여기에 표시됩니다." />
+        android:text="@string/note_text" />
 
     <Button
         android:id="@+id/startListeningButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="음성 입력 시작" />
+        android:text="@string/start_listening" />
 
 </LinearLayout>

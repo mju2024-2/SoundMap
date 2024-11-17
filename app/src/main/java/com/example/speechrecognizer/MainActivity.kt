@@ -12,17 +12,14 @@ import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : ComponentActivity() {
+    private lateinit var speechToText: SpeechRecognizer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val startListeningButton: Button = findViewById(R.id.startListeningButton)
-
-        if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(android.Manifest.permission.RECORD_AUDIO), 1)
-        }
-
-        val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        speechToText = SpeechRecognizer.createSpeechRecognizer(this)
 
         val recognitionListener = object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
@@ -88,18 +85,30 @@ class MainActivity : ComponentActivity() {
             override fun onEvent(eventType: Int, params: Bundle?) {
                 Log.d("SpeechRecognizer", "onEvent: Event occurred. EventType: $eventType")
             }
+
         }
 
-        speechRecognizer.setRecognitionListener(recognitionListener)
-
+        speechToText.setRecognitionListener(recognitionListener)
         startListeningButton.setOnClickListener {
-            startListeningButton.isEnabled = false
-            startListeningButton.alpha = 0.5f
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
+            if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(android.Manifest.permission.RECORD_AUDIO), 1)
+            } else {
+                startListeningButton.isEnabled = false
+                startListeningButton.alpha = 0.5f
+                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
+                }
+
+                speechToText.startListening(intent)
             }
-            speechRecognizer.startListening(intent)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        speechToText.destroy()
+        Log.d("SpeechRecognizer", "SpeechRecognizer destroyed.")
+    }
+
 }
