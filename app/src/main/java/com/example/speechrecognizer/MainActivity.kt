@@ -10,12 +10,13 @@ import android.speech.RecognizerIntent
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)  // XML 레이아웃 설정
+        setContentView(R.layout.activity_main)
+
+        val startListeningButton: Button = findViewById(R.id.startListeningButton)
 
         if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(android.Manifest.permission.RECORD_AUDIO), 1)
@@ -23,10 +24,9 @@ class MainActivity : ComponentActivity() {
 
         val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
 
-        // RecognitionListener 정의 및 설정
         val recognitionListener = object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
-                Log.d("SpeechRecognizer", "onReadyForSpeech: Speech recognizer is ready.")
+                Log.d("SpeechRecognizer", "onReadyForSpeech: Speech recognizer is ready, button disabled.")
             }
 
             override fun onBeginningOfSpeech() {
@@ -59,6 +59,8 @@ class MainActivity : ComponentActivity() {
                     else -> "Unknown error occurred"
                 }
                 Log.e("SpeechRecognizer", "onError: $errorMessage")
+                startListeningButton.isEnabled = true
+                startListeningButton.alpha = 1.0f
             }
 
             override fun onResults(results: Bundle?) {
@@ -68,7 +70,6 @@ class MainActivity : ComponentActivity() {
                     val recognizedText = matches[0]
                     Log.d("SpeechRecognizer", "onResults: Recognized text: $recognizedText")
 
-                    // TextView 업데이트 코드 추가
                     runOnUiThread {
                         val noteTextView = findViewById<TextView>(R.id.noteTextView)
                         noteTextView.text = recognizedText
@@ -76,6 +77,8 @@ class MainActivity : ComponentActivity() {
                 } else {
                     Log.d("SpeechRecognizer", "onResults: No recognition result matched.")
                 }
+                startListeningButton.isEnabled = true
+                startListeningButton.alpha = 1.0f
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
@@ -87,18 +90,16 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // SpeechRecognizer에 Listener 연결
         speechRecognizer.setRecognitionListener(recognitionListener)
 
-        // 음성 인식 시작 버튼을 예로 들어 설정
-        findViewById<Button>(R.id.startListeningButton).setOnClickListener {
+        startListeningButton.setOnClickListener {
+            startListeningButton.isEnabled = false
+            startListeningButton.alpha = 0.5f
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
                 putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
             }
-
             speechRecognizer.startListening(intent)
         }
-
     }
 }
