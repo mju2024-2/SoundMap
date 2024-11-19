@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/noteTextView"
+        android:id="@+id/noteTextViewDeparture"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -19,7 +20,25 @@
         android:text="@string/note_text" />
 
     <Button
-        android:id="@+id/startListeningButton"
+        android:id="@+id/startListeningButtonDeparture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_listening" />
+
+    <TextView
+        android:id="@+id/noteTextViewDestination"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:background="#EEEEEE"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:text="@string/note_text2" />
+
+    <Button
+        android:id="@+id/startListeningButtonDestination"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/start_listening" />
