@@ -1,43 +1,44 @@
-package com.example.speechrecognizer.controller
+package com.example.speechrecognizer.model
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.speech.*
-import com.example.speechrecognizer.model.RecognitionResult
+import android.util.Log
 
-class SpeechRecognitionManager(
+class SpeechToTextService(
     context: Context,
+    private val listener: SpeechRecognitionListener,
     private val language: String = "ko-KR"
 ) {
+
     private val speechRecognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
-    private var listener: SpeechRecognitionListener? = null
     private val numbersOnlyRegex = Regex("\\D")
 
     init {
         speechRecognizer.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
-                listener?.onReadyForSpeech()
+                listener.onReadyForSpeech()
             }
 
             override fun onBeginningOfSpeech() {
-                listener?.onBeginningOfSpeech()
+                listener.onBeginningOfSpeech()
             }
 
             override fun onRmsChanged(rmsdB: Float) {
-                listener?.onRmsChanged(rmsdB)
+                listener.onRmsChanged(rmsdB)
             }
 
             override fun onBufferReceived(buffer: ByteArray?) {
-                listener?.onBufferReceived()
+                listener.onBufferReceived()
             }
 
             override fun onEndOfSpeech() {
-                listener?.onEndOfSpeech()
+                listener.onEndOfSpeech()
             }
 
             override fun onError(error: Int) {
-                listener?.onError(error)
+                listener.onError(error)
             }
 
             override fun onResults(results: Bundle?) {
@@ -46,18 +47,18 @@ class SpeechRecognitionManager(
                     val recognizedText = matches[0]
                     val numbersOnly = recognizedText.replace(numbersOnlyRegex, "")
                     val recognitionResult = RecognitionResult(recognizedText, numbersOnly)
-                    listener?.onResults(recognitionResult)
+                    listener.onResults(recognitionResult)
                 } else {
-                    listener?.onResults(null)
+                    listener.onResults(null)
                 }
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
-                listener?.onPartialResults()
+                listener.onPartialResults()
             }
 
             override fun onEvent(eventType: Int, params: Bundle?) {
-                listener?.onEvent(eventType)
+                listener.onEvent(eventType)
             }
         })
     }
@@ -79,10 +80,6 @@ class SpeechRecognitionManager(
 
     fun destroy() {
         speechRecognizer.destroy()
-    }
-
-    fun setSpeechRecognitionListener(listener: SpeechRecognitionListener) {
-        this.listener = listener
     }
 
     interface SpeechRecognitionListener {

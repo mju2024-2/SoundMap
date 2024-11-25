@@ -1,11 +1,11 @@
-package com.example.speechrecognizer.controller
+package com.example.speechrecognizer.model
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import java.util.*
 
-class TextToSpeechManager(
+class TextToSpeechService(
     context: Context,
     private val language: Locale = Locale.KOREAN
 ) : TextToSpeech.OnInitListener {
