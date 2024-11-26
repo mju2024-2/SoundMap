@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.speechrecognizer.R
 import com.example.speechrecognizer.controller.MainController
+import com.example.speechrecognizer.controller.PathFinderController
 
 private const val TAG = "MainActivity"
 
@@ -15,6 +16,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var mainView: MainView
     private lateinit var mainController: MainController
+    private lateinit var pathFinderController: PathFinderController
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -36,6 +38,7 @@ class MainActivity : ComponentActivity() {
 
         mainView = MainView(findViewById(android.R.id.content))
         mainController = MainController(this, mainView)
+        pathFinderController = PathFinderController(this, mainView)
 
         mainView.startListeningButtonDeparture.setOnClickListener {
             isDeparture = true
@@ -47,6 +50,10 @@ class MainActivity : ComponentActivity() {
             isDeparture = false
             mainView.disableButtons()
             checkPermissionAndStartListening()
+        }
+
+        mainView.searchButton.setOnClickListener {
+            pathFinderController.onSearchButtonClicked()
         }
     }
 

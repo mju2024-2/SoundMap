@@ -65,9 +65,9 @@ class MainController(
             Log.d("SpeechRecognizer", "onResults: Extracted numbers: ${result.numbersOnly}")
 
             if (isDeparture) {
-                mainView.noteTextViewDeparture.text = result.numbersOnly
+                mainView.startEditText.setText(result.numbersOnly)
             } else {
-                mainView.noteTextViewDestination.text = result.numbersOnly
+                mainView.endEditText.setText(result.numbersOnly)
             }
             textToSpeechManager.speak(result.numbersOnly)
         } else {
