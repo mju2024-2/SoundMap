@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SpeechRecognizer</string>
-    <string name="note_text">출발지 검색</string>
-    <string name="note_text2">도착지 검색</string>
-    <string name="start_listening">음성 입력 시작</string>
+    <string name="note_start_text">출발지 입력</string>
+    <string name="note_end_text">도착지 입력</string>
+    <string name="btn_text">경로 검색</string>
+    <string name="start_listening">S</string>
 </resources>

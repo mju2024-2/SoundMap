@@ -8,8 +8,8 @@ import com.example.speechrecognizer.R
 class MainView(rootView: View) {
     val startListeningButtonDeparture: Button = rootView.findViewById(R.id.startListeningButtonDeparture)
     val startListeningButtonDestination: Button = rootView.findViewById(R.id.startListeningButtonDestination)
-    val noteTextViewDeparture: TextView = rootView.findViewById(R.id.noteTextViewDeparture)
-    val noteTextViewDestination: TextView = rootView.findViewById(R.id.noteTextViewDestination)
+    val noteTextViewDeparture: TextView = rootView.findViewById(R.id.start)
+    val noteTextViewDestination: TextView = rootView.findViewById(R.id.end)
 
     fun disableButtons() {
         startListeningButtonDeparture.isEnabled = false
