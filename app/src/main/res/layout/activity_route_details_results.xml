@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_background"
+        android:padding="16dp"
+        android:layout_margin="8dp">
+
+        <!-- 경로 제목 -->
+        <TextView
+            android:id="@+id/routeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="경로 제목"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/black" />
+
+        <!-- 소요 시간 -->
+        <TextView
+            android:id="@+id/travelTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="소요 시간"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/black" />
+
+        <!-- 시작 시간과 비용 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/startingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출발 시간"
+                android:textSize="16sp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비용"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- 노선 타입, 경로 세부 정보, 역 개수 -->
+        <TextView
+            android:id="@+id/routeType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="노선 타입"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/routeDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="경로 세부 정보"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/stationCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="역 개수"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/black" />
+
+        <!-- 총 거리 -->
+        <TextView
+            android:id="@+id/totalDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="총 거리"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/black" />
+
+        <!-- 도착 시간, 소요 시간, 출발 시간 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/departureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도착 시간"
+                android:textSize="14sp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/travelDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소요 시간"
+                android:textSize="14sp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/arrivalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출발 시간"
+                android:textSize="14sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- 추가: 노선별 역 정보를 표시하는 RecyclerView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="노선별 역 정보"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+        <LinearLayout
+            android:id="@+id/routeDetailsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp" />
+
+
+
+
+    </LinearLayout>
+</ScrollView>

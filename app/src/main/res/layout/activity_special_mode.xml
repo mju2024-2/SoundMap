@@ -1,0 +1,83 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- 기존의 LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- 상단 터치 영역 -->
+        <LinearLayout
+            android:id="@+id/departure_area"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:padding="16dp">
+
+            <!-- 음성 인식 아이콘 -->
+            <ImageView
+                android:id="@+id/voice_icon_departure"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:src="@android:drawable/ic_btn_speak_now" />
+
+            <!-- 출발지 텍스트 -->
+            <TextView
+                android:id="@+id/departure_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="출발지 "
+                android:textSize="30sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- 하단 터치 영역 -->
+        <LinearLayout
+            android:id="@+id/arrival_area"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:padding="16dp">
+
+            <!-- 음성 인식 아이콘 -->
+            <ImageView
+                android:id="@+id/voice_icon_arrival"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:src="@android:drawable/ic_btn_speak_now" />
+
+            <!-- 도착지 텍스트 -->
+            <TextView
+                android:id="@+id/arrival_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="도착지 "
+                android:textSize="30sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 메뉴 버튼 -->
+    <ImageView
+        android:id="@+id/menu_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/menu_icon"
+    android:layout_gravity="end|top"
+    android:layout_margin="16dp"
+    android:contentDescription="Menu Button" />
+</FrameLayout>

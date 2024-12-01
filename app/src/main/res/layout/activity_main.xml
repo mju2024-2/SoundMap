@@ -1,0 +1,70 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 검색창과 버튼을 감싸는 컨테이너 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="20dp">
+
+        <!-- 검색창 -->
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="8"
+            android:hint="길찾기 검색"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:focusable="false"
+            android:clickable="true" />
+
+        <!-- 메뉴 버튼 -->
+        <ImageButton
+            android:id="@+id/menuButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/menu_icon"
+            android:contentDescription="메뉴 버튼"
+            android:background="@null"
+            android:padding="8dp" />
+
+        <!-- 음성인식 버튼 -->
+        <ImageButton
+            android:id="@+id/voiceButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:contentDescription="음성인식 버튼"
+            android:background="@null"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <!-- ComposeView로 노선도 화면 표시 -->
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/composeSubwayMap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- 설정 버튼 -->
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="end"
+        android:src="@drawable/setting_icon"
+        android:scaleType="fitXY"
+        android:contentDescription="설정 버튼"
+        android:background="@null"
+        android:padding="8dp" />
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- AppCompat 기반 테마 -->
+    <style name="Theme.SoundMap" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme -->
+        <item name="colorPrimary">@color/custom_navy</item> <!-- 사용자 정의 색상 -->
+        <item name="colorPrimaryDark">@color/custom_dark_navy</item> <!-- 어두운 변형 -->
+        <item name="colorAccent">@color/teal_200</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+
+</resources>

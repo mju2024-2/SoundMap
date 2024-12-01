@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" /> <!-- 하얀색 -->
+    <size android:width="40dp" android:height="50dp" /> <!-- 크기 키움 (40dp) -->
+    <corners android:radius="20dp" /> <!-- 원형 아이콘으로 만들기 위해 radius를 크기의 반으로 설정 -->
+</shape>

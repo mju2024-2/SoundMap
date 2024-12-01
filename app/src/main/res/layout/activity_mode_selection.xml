@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <!-- 상단 선택 영역 -->
+    <TextView
+        android:id="@+id/general_mode_area"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/white"
+        android:text="일반 모드"
+        android:textSize="30sp"
+        android:textColor="@color/black" />
+
+    <!-- 하단 선택 영역 -->
+    <TextView
+        android:id="@+id/special_mode_area"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/white"
+        android:text="특수 모드"
+        android:textSize="30sp"
+        android:textColor="@color/black" />
+</LinearLayout>
