@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" /> <!-- 내부 배경색 -->
+    <stroke
+        android:width="2dp"
+    android:color="#808080" />
+    <!-- 둥근 모서리 설정 제거 -->
+</shape>

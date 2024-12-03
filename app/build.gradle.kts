@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
 }
 
 android {
@@ -31,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -79,4 +78,10 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.2.3") // .xlsx 파일 지원
     implementation("org.apache.poi:poi:5.2.3")       // .xls 파일 지원
     implementation("org.apache.commons:commons-collections4:4.4")// 추가 의존성
+
+    // Retrofit 및 Gson 추가
+    implementation(libs.retrofit) // Retrofit
+    implementation(libs.retrofit.converter.gson) // Gson 컨버터
+
+    implementation("androidx.work:work-runtime:2.8.0")
 }

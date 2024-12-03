@@ -56,15 +56,73 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- 설정 버튼 -->
-    <ImageButton
-        android:id="@+id/settingsButton"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="end"
-        android:src="@drawable/setting_icon"
-        android:scaleType="fitXY"
-        android:contentDescription="설정 버튼"
-        android:background="@null"
-        android:padding="8dp" />
+    <!-- 네모칸 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_background"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <!-- "오늘의 날씨는" 텍스트 -->
+        <TextView
+            android:id="@+id/weatherText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오늘의 날씨는?"
+            android:textSize="20sp"
+            android:textColor="#333333"
+            android:textStyle="bold" />
+
+        <!-- 날씨 캐릭터와 정보 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            android:gravity="center_vertical">
+
+            <!-- 날씨 캐릭터 -->
+            <ImageView
+                android:id="@+id/weatherCharacter"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_clear" />
+
+            <!-- 날씨 정보 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@drawable/rounded_background_white">
+
+                <TextView
+                    android:id="@+id/weatherInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="오늘의 날씨: Clear"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/temperatureInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기온: 20°C"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/humidityInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="습도: 60%"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

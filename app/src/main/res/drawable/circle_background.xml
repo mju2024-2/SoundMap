@@ -1,0 +1,6 @@
+<!-- res/drawable/circle_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#D3D3D3"/> <!-- 배경색 -->
+    <corners android:radius="90dp"/> <!-- 반지름: 원하는 크기로 설정 -->
+
+</shape>
