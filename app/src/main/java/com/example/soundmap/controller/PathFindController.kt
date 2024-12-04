@@ -2,14 +2,14 @@ package com.example.soundmap.controller
 
 import android.content.Context
 import android.util.Log
-import com.example.soundmap.model.PathFinder
-import com.example.soundmap.model.Route
+import com.example.soundmap.model.SharedData
+import com.example.soundmap.model.dijkstra
 
 class PathFindController(
     private val context: Context,
     private val listener: PathFindListener
 ) {
-    private val subwayMap = Route()
+    private val subwayMap = SharedData.subwayMap
 
     init {
         loadRouteData()
@@ -22,14 +22,15 @@ class PathFindController(
             val sheet = workbook.getSheetAt(0)
 
             for (row in sheet) {
-                if (row.rowNum == 0) continue // 첫 번째 줄은 헤더라면 무시
+                if (row.rowNum == 0) continue
                 val startStation = row.getCell(0)?.numericCellValue?.toInt() ?: continue
                 val endStation = row.getCell(1)?.numericCellValue?.toInt() ?: continue
                 val distance = row.getCell(2)?.numericCellValue?.toInt() ?: 0
                 val cost = row.getCell(3)?.numericCellValue?.toInt() ?: 0
                 val time = row.getCell(4)?.numericCellValue?.toInt() ?: 0
+                val type = row.getCell(5)?.numericCellValue?.toInt() ?: 0
 
-                subwayMap.addEdge(startStation, endStation, distance, cost, time)
+                subwayMap.addEdge(startStation, endStation, distance, cost, time, type)
             }
 
             workbook.close()
@@ -39,56 +40,44 @@ class PathFindController(
     }
 
     fun onSearchButtonClicked(startStation: String?, endStation: String?) {
-        if (startStation == null || endStation == null) {
-            Log.e("PathFinderController", "Invalid station number.")
+        if (startStation.isNullOrBlank() || endStation.isNullOrBlank()) {
             listener.displayError("출발역과 도착역을 올바르게 입력해주세요.")
             return
         }
 
-        val start = startStation.toInt()
-        val end = endStation.toInt()
+        val start = startStation.toIntOrNull()
+        val end = endStation.toIntOrNull()
 
-        val pathCost = PathFinder.dijkstra(subwayMap, start, end, "cost")
-        val pathDistance = PathFinder.dijkstra(subwayMap, start, end, "distance")
-        val pathTime = PathFinder.dijkstra(subwayMap, start, end, "time")
-
-        if (pathCost != null) {
-            val costText = """
-                최소 비용 경로
-                ${pathCost.path.joinToString(" -> ")}
-                비용 : ${pathCost.cost.first}
-                거리 : ${pathCost.cost.second}
-                시간 : ${pathCost.cost.third}
-            """.trimIndent()
-            listener.displayCostResult(costText)
-        } else {
-            listener.displayCostResult("최소 비용 경로를 찾을 수 없습니다.")
+        if (start == null || end == null) {
+            listener.displayError("역 번호는 숫자로 입력해야 합니다.")
+            return
         }
 
-        if (pathDistance != null) {
-            val distanceText = """
-                최단 거리 경로
-                ${pathDistance.path.joinToString(" -> ")}
-                비용 : ${pathDistance.cost.first}
-                거리 : ${pathDistance.cost.second}
-                시간 : ${pathDistance.cost.third}
-            """.trimIndent()
-            listener.displayDistanceResult(distanceText)
-        } else {
-            listener.displayDistanceResult("최단 거리 경로를 찾을 수 없습니다.")
-        }
+        val costPath = findPath(start, end, "cost")
+        val distancePath = findPath(start, end, "distance")
+        val timePath = findPath(start, end, "time")
 
-        if (pathTime != null) {
-            val timeText = """
-                최소 시간 경로
-                ${pathTime.path.joinToString(" -> ")}
-                비용 : ${pathTime.cost.first}
-                거리 : ${pathTime.cost.second}
-                시간 : ${pathTime.cost.third}
+        listener.displayCostResult(costPath)
+        listener.displayDistanceResult(distancePath)
+        listener.displayTimeResult(timePath)
+    }
+
+    private fun findPath(start: Int, end: Int, weightType: String): String {
+        val result = dijkstra(subwayMap, start, end, weightType)
+        return if (result != null) {
+            val (pathAndLine, costDetails) = result
+            val (path, line) = pathAndLine
+            val (cost, distance, time) = costDetails
+
+            """
+            $weightType 기준 최적 경로
+            경로: ${path.joinToString(" -> ")} (호선: ${line.joinToString(", ")})
+            비용: $cost
+            거리: $distance
+            시간: $time
             """.trimIndent()
-            listener.displayTimeResult(timeText)
         } else {
-            listener.displayTimeResult("최소 시간 경로를 찾을 수 없습니다.")
+            "$weightType 기준 최적 경로를 찾을 수 없습니다."
         }
     }
 

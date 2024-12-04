@@ -27,7 +27,7 @@
                 android:contentDescription="즐겨찾기"
                 android:layout_marginEnd="8dp"
                 android:scaleType="fitCenter"
-            android:padding="2dp"/>
+                android:padding="2dp"/>
 
             <!-- 검색 결과 타이틀 -->
             <TextView
@@ -101,21 +101,21 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
 
-                <TextView
-                    android:id="@+id/routeType1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수인분당선"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/routeType1"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="수인분당선"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:layout_marginEnd="16dp" />-->
 
-                <TextView
-                    android:id="@+id/routeDetails1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수원역 / 고색역 / 망포역"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/routeDetails1"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="수원역 / 고색역 / 망포역"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:layout_marginEnd="16dp" />-->
 
                 <TextView
                     android:id="@+id/stationCount1"
@@ -186,6 +186,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
+
             <TextView
                 android:id="@+id/travelTimeText2"
                 android:layout_width="wrap_content"
@@ -222,21 +223,21 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
 
-                <TextView
-                    android:id="@+id/routeType2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="분당선"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/routeType2"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="분당선"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:layout_marginEnd="16dp" />-->
 
-                <TextView
-                    android:id="@+id/routeDetails2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수원역 / 매탄권선역"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/routeDetails2"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="수원역 / 매탄권선역"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:layout_marginEnd="16dp" />-->
 
                 <TextView
                     android:id="@+id/stationCount2"
@@ -343,21 +344,21 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
 
-                <TextView
-                    android:id="@+id/routeType3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1호선"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/routeType3"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="1호선"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:layout_marginEnd="16dp" />-->
 
-                <TextView
-                    android:id="@+id/routeDetails3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수원역 / 성균관대역"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/routeDetails3"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="수원역 / 성균관대역"-->
+                <!--                    android:textSize="16sp"-->
+                <!--                    android:layout_marginEnd="16dp" />-->
 
                 <TextView
                     android:id="@+id/stationCount3"

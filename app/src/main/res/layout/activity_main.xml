@@ -36,17 +36,6 @@
             android:contentDescription="메뉴 버튼"
             android:background="@null"
             android:padding="8dp" />
-
-        <!-- 음성인식 버튼 -->
-        <ImageButton
-            android:id="@+id/voiceButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:src="@android:drawable/ic_btn_speak_now"
-            android:contentDescription="음성인식 버튼"
-            android:background="@null"
-            android:padding="8dp" />
     </LinearLayout>
 
     <!-- ComposeView로 노선도 화면 표시 -->

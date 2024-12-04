@@ -27,18 +27,12 @@ class GeneralModeActivity : AppCompatActivity() {
 
         // View 초기화
         val menuButton: ImageButton = findViewById(R.id.menuButton)
-        val voiceButton: ImageButton = findViewById(R.id.voiceButton)
         val composeSubwayMap: ComposeView = findViewById(R.id.composeSubwayMap)
 
         // 메뉴 버튼 클릭 이벤트
         menuButton.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
-        }
-
-        // 음성인식 버튼 클릭 이벤트
-        voiceButton.setOnClickListener {
-            Toast.makeText(this, "음성인식 버튼 클릭됨!", Toast.LENGTH_SHORT).show()
         }
 
         // 검색창 클릭 이벤트

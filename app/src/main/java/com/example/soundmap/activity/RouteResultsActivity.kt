@@ -14,6 +14,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import com.example.soundmap.model.SharedData
+import com.example.soundmap.model.dijkstra
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 /**
@@ -45,51 +50,93 @@ class RouteResultsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_route_results)
-
         // UI 요소 초기화
         val favoriteStarButton: ImageButton = findViewById(R.id.favoriteStarButton)
         val searchResultTitle: TextView = findViewById(R.id.searchResultTitle)
 
+        // Intent로 전달받은 출발역 도착역 가져오기
+        val startStation = intent.getStringExtra("startStation") ?: "출발역"
+        val endStation = intent.getStringExtra("endStation") ?: "도착역"
+
+        //최단경로 계산
+        val (costPath, cost ) = dijkstra(SharedData.subwayMap, startStation.toInt(), endStation.toInt(), "cost") ?: error("경로를 찾을 수 없습니다.")
+        val (cost_path, cost_line) = costPath
+        val (cost_totalCost, cost_totalDis, cost_totalTime) = cost
+        val (disPath, distance) = dijkstra(SharedData.subwayMap, startStation.toInt(), endStation.toInt(), "distance") ?: error("경로를 찾을 수 없습니다.")
+        val (dis_path, dis_line) = disPath
+        val (dis_totalCost, dis_totalDis, dis_totalTime) = distance
+        val (timePath, time) = dijkstra(SharedData.subwayMap, startStation.toInt(), endStation.toInt(), "time") ?: error("경로를 찾을 수 없습니다.")
+        val (time_path, time_line) = timePath
+        val (time_totalCost, time_totalDis, time_totalTime) = time
+
+        //경로별 역 갯수 계산
+        var cost_count = 0
+        for(i in cost_path){
+            cost_count++
+        }
+        var dis_count = 0
+        for(i in dis_path){
+            dis_count++
+        }
+        var time_count = 0
+        for(i in time_path){
+            time_count++
+        }
+
+        val currentTime = LocalTime.now()
+        val formatter = DateTimeFormatter.ofPattern("hh:mm")
+
+        //출발역 도착역 표시
+        searchResultTitle.text = "$startStation → $endStation"
+
         // 경로 데이터 설정 (샘플 데이터를 사용하여 초기화)
         routeDetailsList = mutableListOf(
             RouteDetails(
-                title = "최단 경로",
-                travelTime = "22분",
-                startingTime = formatTime(System.currentTimeMillis()) + " 출발",
-                cost = "1500원",
-                routeType = "수인분당선",
-                routeDetails = "수원역 / 고색역 / 망포역",
-                stationCount = "8개 역",
-                totalDistance = "총 거리: 10.8km",
-                departureTime = formatTime(System.currentTimeMillis()),
-                travelDuration = "22분",
-                arrivalTime = formatTime(System.currentTimeMillis() + 22 * 60 * 1000)
+                title = "최소 비용 경로",
+                travelTime = "" + cost_totalTime/60 + "분 " + cost_totalTime%60 + "초",
+                startingTime = "" + currentTime.format(formatter) + " 출발",
+                cost = "" + cost_totalCost + "원",
+                stationCount = "" + (cost_count - 1) + "개 역 이동",
+                totalDistance = "총  거리: " + cost_totalDis + "m",
+                departureTime = "출발 : " + currentTime.format(formatter),
+                travelDuration = "" + cost_totalTime/60 + "분 " + cost_totalTime % 60 + "초",
+                arrivalTime = "도착 : " + currentTime.plusSeconds(cost_totalTime.toLong()).format(formatter),
+                route = cost_path,
+                line = cost_line,
+                travelTimeInt = cost_totalTime,
+                currentTime = currentTime.toString()
+
             ),
             RouteDetails(
-                title = "최소 비용",
-                travelTime = "25분",
-                startingTime = formatTime(System.currentTimeMillis()) + " 출발",
-                cost = "1400원",
-                routeType = "분당선",
-                routeDetails = "수원역 / 매탄권선역",
-                stationCount = "5개 역",
-                totalDistance = "총 거리: 10.8km",
-                departureTime = formatTime(System.currentTimeMillis()),
-                travelDuration = "25분",
-                arrivalTime = formatTime(System.currentTimeMillis() + 25 * 60 * 1000)
+                title = "최단 거리 경로",
+                travelTime = "" + dis_totalTime/60 + "분 " + dis_totalTime%60 + "초",
+                startingTime = "" + currentTime.format(formatter) + " 출발",
+                cost = "" + dis_totalCost + "원",
+                stationCount = "" + (dis_count - 1) + "개 역 이동",
+                totalDistance = "총  거리: " + dis_totalDis + "m",
+                departureTime = "출발 : " + currentTime.format(formatter),
+                travelDuration = "" + dis_totalTime/60 + "분 " + dis_totalTime % 60 + "초",
+                arrivalTime = "도착 : " + currentTime.plusSeconds(dis_totalTime.toLong()).format(formatter),
+                route = dis_path,
+                line = dis_line,
+                travelTimeInt = dis_totalTime,
+                currentTime = currentTime.toString()
+
             ),
             RouteDetails(
-                title = "최소 거리",
-                travelTime = "30분",
-                startingTime = formatTime(System.currentTimeMillis()) + " 출발",
-                cost = "1600원",
-                routeType = "1호선",
-                routeDetails = "수원역 / 성균관대역",
-                stationCount = "7개 역",
-                totalDistance = "총 거리: 10.8km",
-                departureTime = formatTime(System.currentTimeMillis()),
-                travelDuration = "30분",
-                arrivalTime = formatTime(System.currentTimeMillis() + 30 * 60 * 1000)
+                title = "최소 시간 경로",
+                travelTime = "" + time_totalTime/60 + "분 " + time_totalTime%60 + "초",
+                startingTime = "" + currentTime.format(formatter) + " 출발",
+                cost = "" + time_totalCost + "원",
+                stationCount = "" + (time_count - 1) + "개 역 이동",
+                totalDistance = "총  거리: " + time_totalDis + "m",
+                departureTime = "출발 : " + currentTime.format(formatter),
+                travelDuration = "" + time_totalTime/60 + "분 " + time_totalTime % 60 + "초",
+                arrivalTime = "도착 : " + currentTime.plusSeconds(time_totalTime.toLong()).format(formatter),
+                route = time_path,
+                line = time_line,
+                travelTimeInt = time_totalTime,
+                currentTime = currentTime.toString()
             )
         )
 
@@ -107,17 +154,12 @@ class RouteResultsActivity : AppCompatActivity() {
                 navigateToDetails(routeDetails)
             }
         }
-
-        // Intent로 전달받은 출발역과 도착역 정보 가져오기
-        val startStation = intent.getStringExtra("startStation") ?: "출발역"
-        val endStation = intent.getStringExtra("endStation") ?: "도착역"
-        searchResultTitle.text = "$startStation → $endStation"
+        val currentRoute = Pair(startStation, endStation)
 
         // SharedPreferences에서 즐겨찾기 로드
         loadFavoriteSearches()
 
         // 즐겨찾기 상태 확인 및 버튼 업데이트
-        val currentRoute = Pair(startStation, endStation)
         updateFavoriteStarButton(currentRoute, favoriteStarButton)
 
         // 즐겨찾기 버튼 클릭 이벤트 설정
@@ -138,38 +180,37 @@ class RouteResultsActivity : AppCompatActivity() {
     private fun updateBoxUI(routeDetailsList: List<RouteDetails>) {
         // 각 박스의 데이터 설정
         for ((index, route) in routeDetailsList.withIndex()) {
-            // `arrivalTime`과 `travelDuration`을 계산
-            val travelDurationMinutes = route.travelDuration.replace("분", "").toIntOrNull() ?: 0
-            val updatedArrivalTimeMillis = parseTime(route.departureTime) + travelDurationMinutes * 60 * 1000
-
             when (index) {
                 0 -> {
+                    findViewById<TextView>(R.id.title1).text = route.title
                     findViewById<TextView>(R.id.startingTime1).text = route.startingTime
                     findViewById<TextView>(R.id.travelTimeText1).text = route.travelTime
                     findViewById<TextView>(R.id.cost1).text = route.cost
-                    findViewById<TextView>(R.id.routeType1).text = route.routeType
-                    findViewById<TextView>(R.id.routeDetails1).text = route.routeDetails
-                    findViewById<TextView>(R.id.arrivalTime1).text = formatTime(updatedArrivalTimeMillis)
+                    findViewById<TextView>(R.id.stationCount1).text = route.stationCount
+                    findViewById<TextView>(R.id.totalDistance1).text = route.totalDistance
+                    findViewById<TextView>(R.id.arrivalTime1).text = route.arrivalTime
                     findViewById<TextView>(R.id.travelDuration1).text = route.travelDuration
                     findViewById<TextView>(R.id.departureTime1).text = route.departureTime
                 }
                 1 -> {
+                    findViewById<TextView>(R.id.title2).text = route.title
                     findViewById<TextView>(R.id.startingTime2).text = route.startingTime
                     findViewById<TextView>(R.id.travelTimeText2).text = route.travelTime
                     findViewById<TextView>(R.id.cost2).text = route.cost
-                    findViewById<TextView>(R.id.routeType2).text = route.routeType
-                    findViewById<TextView>(R.id.routeDetails2).text = route.routeDetails
-                    findViewById<TextView>(R.id.arrivalTime2).text = formatTime(updatedArrivalTimeMillis)
+                    findViewById<TextView>(R.id.stationCount2).text = route.stationCount
+                    findViewById<TextView>(R.id.totalDistance2).text = route.totalDistance
+                    findViewById<TextView>(R.id.arrivalTime2).text = route.arrivalTime
                     findViewById<TextView>(R.id.travelDuration2).text = route.travelDuration
                     findViewById<TextView>(R.id.departureTime2).text = route.departureTime
                 }
                 2 -> {
+                    findViewById<TextView>(R.id.title3).text = route.title
                     findViewById<TextView>(R.id.startingTime3).text = route.startingTime
                     findViewById<TextView>(R.id.travelTimeText3).text = route.travelTime
                     findViewById<TextView>(R.id.cost3).text = route.cost
-                    findViewById<TextView>(R.id.routeType3).text = route.routeType
-                    findViewById<TextView>(R.id.routeDetails3).text = route.routeDetails
-                    findViewById<TextView>(R.id.arrivalTime3).text = formatTime(updatedArrivalTimeMillis)
+                    findViewById<TextView>(R.id.stationCount3).text = route.stationCount
+                    findViewById<TextView>(R.id.totalDistance3).text = route.totalDistance
+                    findViewById<TextView>(R.id.arrivalTime3).text = route.arrivalTime
                     findViewById<TextView>(R.id.travelDuration3).text = route.travelDuration
                     findViewById<TextView>(R.id.departureTime3).text = route.departureTime
                 }
@@ -206,15 +247,26 @@ class RouteResultsActivity : AppCompatActivity() {
         updateHandler = Handler(Looper.getMainLooper())
         updateRunnable = object : Runnable {
             override fun run() {
-                val currentTimeMillis = System.currentTimeMillis()
+                // 현재 시간 가져오기
+                val currentTime = LocalTime.now()
+
+                // 경로 데이터 업데이트
                 routeDetailsList = routeDetailsList.map { route ->
-                    val travelMinutes = route.travelTime.replace("분", "").toIntOrNull() ?: 0
-                    val updatedDepartureTimeMillis = currentTimeMillis
-                    val updatedArrivalTimeMillis = updatedDepartureTimeMillis + travelMinutes * 60 * 1000
+                    // travelTime을 초 단위로 변환
+                    val travelTimeParts = route.travelTime.split("분", "초").map { it.trim().toIntOrNull() ?: 0 }
+                    val travelTimeInSeconds = travelTimeParts[0] * 60 + travelTimeParts[1]
+
+                    // 출발 시간: 현재 시간
+                    val updatedDepartureTime = currentTime
+
+                    // 도착 시간: 출발 시간 + 소요 시간
+                    val updatedArrivalTime = updatedDepartureTime.plusSeconds(travelTimeInSeconds.toLong())
+
+                    // RouteDetails 객체 업데이트
                     route.copy(
-                        startingTime = formatTime(System.currentTimeMillis()) + " 출발",
-                        departureTime = formatTime(updatedDepartureTimeMillis),
-                        arrivalTime = formatTime(updatedArrivalTimeMillis)
+                        startingTime = "출발: ${updatedDepartureTime.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault()))}",
+                        departureTime = "출발: ${updatedDepartureTime.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault()))}",
+                        arrivalTime = "도착: ${updatedArrivalTime.format(DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault()))}"
                     )
                 }.toMutableList()
                 updateBoxUI(routeDetailsList)
@@ -312,8 +364,17 @@ class RouteResultsActivity : AppCompatActivity() {
     /**
      * Activity가 파괴될 때 실행 중인 업데이트를 중단합니다.
      */
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (::updateHandler.isInitialized) {
+            updateHandler.removeCallbacks(updateRunnable)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        updateHandler.removeCallbacks(updateRunnable)
+        if (::updateHandler.isInitialized) {
+            updateHandler.removeCallbacks(updateRunnable)
+        }
     }
 }

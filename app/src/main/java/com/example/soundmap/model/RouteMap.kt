@@ -2,35 +2,35 @@ package com.example.soundmap.model
 
 import java.util.HashMap
 
-class Route {
-    private val map: HashMap<Int, Station> = HashMap()
+class RouteMap {
+    val map: HashMap<Int, StationNode> = HashMap()
 
-    fun addEdge(startStation: Int, endStation: Int, distance: Int, cost: Int, time: Int) {
-        val newStation = Station(endStation, distance, cost, time)
+    fun addEdge(startStation: Int, endStation: Int, distance: Int, cost: Int, time: Int, type: Int) {
+        val newNode = StationNode(endStation, distance, cost, time, type)
         if (map[startStation] == null) {
-            map[startStation] = newStation
+            map[startStation] = newNode
         } else {
             var current = map[startStation]
             while (current?.next != null) {
                 current = current.next
             }
-            current?.next = newStation
+            current?.next = newNode
         }
 
-        val reverseStation = Station(startStation, distance, cost, time)
+        val reverseNode = StationNode(startStation, distance, cost, time, type)
         if (map[endStation] == null) {
-            map[endStation] = reverseStation
+            map[endStation] = reverseNode
         } else {
             var currentReverse = map[endStation]
             while (currentReverse?.next != null) {
                 currentReverse = currentReverse.next
             }
-            currentReverse?.next = reverseStation
+            currentReverse?.next = reverseNode
         }
     }
 
-    fun getNeighbors(station: Int): List<Station> {
-        val neighbors = mutableListOf<Station>()
+    fun getNeighbors(station: Int): List<StationNode> {
+        val neighbors = mutableListOf<StationNode>()
         var current = map[station]
         while (current != null) {
             neighbors.add(current)
@@ -38,4 +38,8 @@ class Route {
         }
         return neighbors
     }
+}
+
+object SharedData {
+    val subwayMap = RouteMap()
 }

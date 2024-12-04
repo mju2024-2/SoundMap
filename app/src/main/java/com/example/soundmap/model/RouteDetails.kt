@@ -25,13 +25,17 @@ data class RouteDetails(
     val travelTime: String,      // 이동 시간
     val startingTime: String,    // 출발 시각
     val cost: String,            // 경로 비용
-    val routeType: String,       // 경로 유형 또는 노선 정보
-    val routeDetails: String,    // 주요 역 정보
+//    val routeType: String,       // 경로 유형 또는 노선 정보
+//    val routeDetails: String,    // 주요 역 정보
     val stationCount: String,    // 경로에 포함된 역 개수
     val totalDistance: String,   // 경로 총 거리
     val arrivalTime: String,     // 도착 시각
     val travelDuration: String,  // 소요 시간
-    val departureTime: String    // 출발 시각
+    val departureTime: String,    // 출발 시각
+    val route : List<Int>,
+    val line : List<Int>,
+    val travelTimeInt: Int,
+    val currentTime : String
 ) : Parcelable {
 
     /**
@@ -42,13 +46,17 @@ data class RouteDetails(
         parcel.readString() ?: "", // 이동 시간
         parcel.readString() ?: "", // 출발 시각
         parcel.readString() ?: "", // 경로 비용
-        parcel.readString() ?: "", // 경로 유형
-        parcel.readString() ?: "", // 주요 역 정보
+//        parcel.readString() ?: "", // 경로 유형
+//        parcel.readString() ?: "", // 주요 역 정보
         parcel.readString() ?: "", // 역 개수
         parcel.readString() ?: "", // 총 거리
         parcel.readString() ?: "", // 도착 시각
         parcel.readString() ?: "", // 소요 시간
-        parcel.readString() ?: ""  // 출발 시각
+        parcel.readString() ?: "",  // 출발 시각
+        parcel.createIntArray()?.toList() ?: emptyList(),
+        parcel.createIntArray()?.toList() ?: emptyList(),
+        parcel.readInt(),
+        parcel.readString() ?: ""
     )
 
     /**
@@ -60,13 +68,17 @@ data class RouteDetails(
         parcel.writeString(travelTime)
         parcel.writeString(startingTime)
         parcel.writeString(cost)
-        parcel.writeString(routeType)
-        parcel.writeString(routeDetails)
+//        parcel.writeString(routeType)
+//        parcel.writeString(routeDetails)
         parcel.writeString(stationCount)
         parcel.writeString(totalDistance)
         parcel.writeString(arrivalTime)
         parcel.writeString(travelDuration)
         parcel.writeString(departureTime)
+        parcel.writeIntArray(route.toIntArray())
+        parcel.writeIntArray(line.toIntArray())
+        parcel.writeInt(travelTimeInt)
+        parcel.writeString(currentTime)
     }
 
     /**
