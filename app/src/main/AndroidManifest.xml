@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.soundmap">
@@ -14,31 +15,25 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="SoundMap"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundMap"
         tools:targetApi="31">
 
         <!-- MainActivity -->
-        <activity android:name=".activity.MainActivity"
+        <activity
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.AppStartActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.ModeSelectionActivity"
-            android:exported="true" />
-
-        <!-- 다른 액티비티들 -->
+        <activity android:name=".activity.AppStartActivity" android:exported="true" />
+        <activity android:name=".activity.ModeSelectionActivity" android:exported="true" />
         <activity android:name=".activity.SearchResultsActivity" android:exported="true" />
         <activity android:name=".activity.MenuActivity" />
-        <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.RouteResultsActivity" />
         <activity android:name=".activity.RouteDetailsResultsActivity" />
         <activity android:name=".activity.GeneralModeActivity" />
@@ -46,8 +41,29 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.SpecialMenuActivity" />
         <activity android:name=".activity.SubwayMapActivity" />
+        <activity android:name=".activity.SpecialSearchResultActivity" android:exported="false" />
 
+        <!-- 위젯 등록 -->
+        <receiver android:name=".widget.SpecialModeWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/special_mode_widget_info" />
+        </receiver>
 
+        <receiver android:name=".widget.GeneralModeWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/general_mode_widget_info" />
+        </receiver>
 
     </application>
+
 </manifest>

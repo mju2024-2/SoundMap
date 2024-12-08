@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.ImageView
 import android.os.Bundle
 import android.widget.Button
+import com.example.soundmap.model.SharedData
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -89,26 +90,61 @@ class SearchResultsActivity : AppCompatActivity(),
 
         val searchButton: Button = findViewById(R.id.searchButton)
         searchButton.setOnClickListener {
-
             val startStation = startEditText.text.toString().trim()
             val endStation = endEditText.text.toString().trim()
-            pathFindController.onSearchButtonClicked(startStation, endStation)
 
+            // 입력값이 비어있는 경우 처리
             if (startStation.isEmpty() || endStation.isEmpty()) {
                 Toast.makeText(this, "출발역과 도착역을 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
-            } else {
-                addRecentSearch(startStation, endStation)
+                return@setOnClickListener
+            }
 
-                val currentTimeMillis = System.currentTimeMillis()
-                val intent = Intent(this, RouteResultsActivity::class.java).apply {
-                    putExtra("startStation", startStation)
-                    putExtra("endStation", endStation)
-                    putExtra("searchTime", currentTimeMillis)
+            // 입력값이 숫자가 아닌 경우 처리
+            if (!startStation.all { it.isDigit() } || !endStation.all { it.isDigit() }) {
+                Toast.makeText(this, "출발역과 도착역은 숫자로 입력해야 합니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 입력값이 RouteMap에 존재하는지 확인
+            val startStationInt = startStation.toIntOrNull()
+            val endStationInt = endStation.toIntOrNull()
+
+            if (startStationInt == null || endStationInt == null) {
+                Toast.makeText(this, "출발역과 도착역은 유효한 숫자여야 합니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val isStartValid = SharedData.subwayMap.map.containsKey(startStationInt)
+            val isEndValid = SharedData.subwayMap.map.containsKey(endStationInt)
+
+            when {
+                !isStartValid && !isEndValid -> {
+                    Toast.makeText(this, "출발역과 도착역이 모두 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
                 }
-                startActivity(intent)
+                !isStartValid -> {
+                    Toast.makeText(this, "출발역이 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+                }
+                !isEndValid -> {
+                    Toast.makeText(this, "도착역이 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    // PathFindController로 전달
+                    pathFindController.onSearchButtonClicked(startStation, endStation)
+
+                    // 검색 기록 추가
+                    addRecentSearch(startStation, endStation)
+
+                    // RouteResultsActivity로 이동
+                    val currentTimeMillis = System.currentTimeMillis()
+                    val intent = Intent(this, RouteResultsActivity::class.java).apply {
+                        putExtra("startStation", startStation)
+                        putExtra("endStation", endStation)
+                        putExtra("searchTime", currentTimeMillis)
+                    }
+                    startActivity(intent)
+                }
             }
         }
-
         loadRecentSearches()
         loadFavoriteSearches()
 
@@ -376,6 +412,8 @@ class SearchResultsActivity : AppCompatActivity(),
             favoriteSearches.removeAt(index)
             saveFavoriteSearches()
             updateFavoriteSearchesUI(container)
+            val recentSearchesContainer: LinearLayout = findViewById(R.id.recentSearchesContainer)
+            updateRecentSearchesUI(recentSearchesContainer)
         }
     }
 

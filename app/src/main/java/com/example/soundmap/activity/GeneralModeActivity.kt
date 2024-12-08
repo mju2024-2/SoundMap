@@ -23,7 +23,7 @@ class GeneralModeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_general_mode)
 
         // View 초기화
         val menuButton: ImageButton = findViewById(R.id.menuButton)

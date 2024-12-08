@@ -1,112 +1,120 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <!-- 출발지 입력 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <EditText
-            android:id="@+id/startEditText"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:hint="출발지 입력"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:textSize="16sp" />
-
-        <ImageButton
-            android:id="@+id/startVoiceButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:src="@android:drawable/ic_btn_speak_now"
-            android:contentDescription="출발지 음성 입력 버튼"
-            android:background="@null"
-            android:padding="8dp" />
-
-        <Button
-            android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="검색"
-            android:backgroundTint="@color/custom_navy"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="2dp" />
-    </LinearLayout>
+    android:fillViewport="true">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <EditText
-            android:id="@+id/endEditText"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:hint="도착지 입력"
-            android:background="@drawable/edit_text_background"
-            android:padding="12dp"
-            android:textSize="16sp" />
-
-        <ImageButton
-            android:id="@+id/endVoiceButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:src="@android:drawable/ic_btn_speak_now"
-            android:contentDescription="도착지 음성 입력 버튼"
-            android:background="@null"
-            android:padding="8dp" />
-
-        <Button
-            android:id="@+id/dummyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:background="@android:color/transparent"
-            android:visibility="invisible" />
-    </LinearLayout>
-
-    <!-- 최근 검색 기록 -->
-    <TextView
-        android:id="@+id/recentSearchesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="최근 검색 기록"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
-
-    <LinearLayout
-        android:id="@+id/recentSearchesContainer"
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="16dp" />
+        android:padding="16dp">
 
-    <!-- 즐겨찾기 목록 -->
-    <TextView
-        android:id="@+id/favoriteSearchesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="즐겨찾기 목록"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
+        <!-- 출발지 입력 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
 
-    <LinearLayout
-        android:id="@+id/favoriteSearchesContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
-</LinearLayout>
+            <EditText
+                android:id="@+id/startEditText"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="출발지 입력"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/startVoiceButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="4dp"
+                android:src="@android:drawable/ic_btn_speak_now"
+                android:contentDescription="출발지 음성 입력 버튼"
+                android:background="@null"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="검색"
+                android:backgroundTint="@color/custom_navy"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="2dp" />
+        </LinearLayout>
+
+        <!-- 도착지 입력 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/endEditText"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="도착지 입력"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/endVoiceButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="4dp"
+                android:src="@android:drawable/ic_btn_speak_now"
+                android:contentDescription="도착지 음성 입력 버튼"
+                android:background="@null"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/dummyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <!-- 최근 검색 기록 -->
+        <TextView
+            android:id="@+id/recentSearchesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최근 검색 기록"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/recentSearchesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 즐겨찾기 목록 -->
+        <TextView
+            android:id="@+id/favoriteSearchesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="즐겨찾기 목록"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/favoriteSearchesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+</ScrollView>

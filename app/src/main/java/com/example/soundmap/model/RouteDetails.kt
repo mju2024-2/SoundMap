@@ -12,8 +12,6 @@ import android.os.Parcelable
  * @property travelTime 이동 시간 (예: "22분")
  * @property startingTime 출발 시각 (예: "오전 10:30 출발")
  * @property cost 경로 비용 (예: "1500원")
- * @property routeType 경로 유형 (예: "1호선", "2호선" 등 노선 정보)
- * @property routeDetails 경로에 포함된 주요 역 정보 (예: "수원역 / 고색역 / 망포역")
  * @property stationCount 경로에 포함된 역 개수 (예: "8개 역")
  * @property totalDistance 경로의 총 거리 (예: "총 거리: 10.8km")
  * @property arrivalTime 도착 시각 (예: "오전 11:00")
@@ -25,8 +23,6 @@ data class RouteDetails(
     val travelTime: String,      // 이동 시간
     val startingTime: String,    // 출발 시각
     val cost: String,            // 경로 비용
-//    val routeType: String,       // 경로 유형 또는 노선 정보
-//    val routeDetails: String,    // 주요 역 정보
     val stationCount: String,    // 경로에 포함된 역 개수
     val totalDistance: String,   // 경로 총 거리
     val arrivalTime: String,     // 도착 시각
@@ -46,8 +42,6 @@ data class RouteDetails(
         parcel.readString() ?: "", // 이동 시간
         parcel.readString() ?: "", // 출발 시각
         parcel.readString() ?: "", // 경로 비용
-//        parcel.readString() ?: "", // 경로 유형
-//        parcel.readString() ?: "", // 주요 역 정보
         parcel.readString() ?: "", // 역 개수
         parcel.readString() ?: "", // 총 거리
         parcel.readString() ?: "", // 도착 시각
@@ -68,8 +62,6 @@ data class RouteDetails(
         parcel.writeString(travelTime)
         parcel.writeString(startingTime)
         parcel.writeString(cost)
-//        parcel.writeString(routeType)
-//        parcel.writeString(routeDetails)
         parcel.writeString(stationCount)
         parcel.writeString(totalDistance)
         parcel.writeString(arrivalTime)

@@ -23,12 +23,12 @@ class PathFindController(
 
             for (row in sheet) {
                 if (row.rowNum == 0) continue
-                val startStation = row.getCell(0)?.numericCellValue?.toInt() ?: continue
-                val endStation = row.getCell(1)?.numericCellValue?.toInt() ?: continue
-                val distance = row.getCell(2)?.numericCellValue?.toInt() ?: 0
-                val cost = row.getCell(3)?.numericCellValue?.toInt() ?: 0
-                val time = row.getCell(4)?.numericCellValue?.toInt() ?: 0
-                val type = row.getCell(5)?.numericCellValue?.toInt() ?: 0
+                val startStation = row.getCell(0)?.numericCellValue?.toInt() ?: continue    //출발역
+                val endStation = row.getCell(1)?.numericCellValue?.toInt() ?: continue  //도착역
+                val time = row.getCell(2)?.numericCellValue?.toInt() ?: 0   //시간
+                val distance = row.getCell(3)?.numericCellValue?.toInt() ?: 0   //거리
+                val cost = row.getCell(4)?.numericCellValue?.toInt() ?: 0   //비용
+                val type = row.getCell(5)?.numericCellValue?.toInt() ?: 0   //호선 종류
 
                 subwayMap.addEdge(startStation, endStation, distance, cost, time, type)
             }
@@ -50,6 +50,14 @@ class PathFindController(
 
         if (start == null || end == null) {
             listener.displayError("역 번호는 숫자로 입력해야 합니다.")
+            return
+        }
+        if (!subwayMap.map.containsKey(start)) {
+            listener.displayError("출발역이 유효하지 않습니다.")
+            return
+        }
+        if (!subwayMap.map.containsKey(end)) {
+            listener.displayError("도착역이 유효하지 않습니다.")
             return
         }
 
