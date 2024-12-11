@@ -18,7 +18,7 @@ import java.util.Locale
 
 class GeneralModeActivity : AppCompatActivity() {
 
-    private val apiKey = "9b7acdea39040a6be33394f51535a7cb" // 환경 변수로 분리 필요
+    private val apiKey = "your_api_key" // 환경 변수로 분리 필요
     private val cityName = "Yongin"
 
     override fun onCreate(savedInstanceState: Bundle?) {
